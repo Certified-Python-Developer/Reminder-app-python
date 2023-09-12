@@ -1,0 +1,41 @@
+def add_reminder():
+    reminder_text = input("Enter your reminder: ")
+    reminder_time = input("Enter the time for the reminder (HH:MM): ")
+
+    with open("reminders.txt", "a") as file:
+        file.write(f"{reminder_time} - {reminder_text}\n")
+
+# Function to display reminders
+def display_reminders():
+    try:
+        with open("reminders.txt", "r") as file:
+            reminders = file.readlines()
+            if not reminders:
+                print("No reminders.")
+            else:
+                print("Reminders:")
+                for reminder in reminders:
+                    print(reminder.strip())
+    except FileNotFoundError:
+        print("No reminders.")
+
+# Main program loop
+while True:
+    print("\nOptions:")
+    print("1. Add Reminder")
+    print("2. Display Reminders")
+    print("3. Exit")
+    choice = input("Select an option: ")
+
+    if choice == "1":
+        add_reminder()
+    elif choice == "2":
+        display_reminders()
+    elif choice == "3":
+        print("Exiting the reminder app.")
+        break
+    else:
+        print("Invalid choice. Please select a valid option.")
+
+    # Add a delay to improve user experience (1 second here)
+    time.sleep(1)
